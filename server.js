@@ -3,6 +3,7 @@ const fs = require('fs')
 const hbs = require('hbs')
 const app = express()
 
+const port = process.env.port || 3000
 app.set('view engine', 'hbs')
 app.use((req, res, next) => {
     var now = new Date().toString();
@@ -14,9 +15,10 @@ app.use((req, res, next) => {
     })
     next();
 })
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     res.render('maintenance.hbs')
-})
+    next()
+})*/
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', (req, res) => {
@@ -50,7 +52,7 @@ hbs.registerHelper('screamIt', text => {
 })
 
 app.listen(3000, () => {
-    console.log('Server is running on port 3000.')
+    console.log(`Server is running on port ${port}.`)
 })
 
 
